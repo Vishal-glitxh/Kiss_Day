@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Kiss Day 💋</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fdeff9,#fbc2eb,#a18cd1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background 2s ease;
+}
+
+/* CARD */
+.card{
+  width:92%;
+  max-width:420px;
+  background:rgba(255,255,255,0.92);
+  border-radius:30px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
+  animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.hidden{display:none;}
+
+h1{
+  color:#c9184a;
+  margin-bottom:12px;
+}
+
+p{
+  color:#6b7280;
+  font-size:1.05em;
+  line-height:1.7;
+  margin-bottom:16px;
+}
+
+/* LIP ICON */
+.kiss{
+  font-size:90px;
+  margin:14px 0;
+  cursor:pointer;
+  animation:breath 4s ease-in-out infinite;
+  transition:transform 0.2s ease;
+}
+
+@keyframes breath{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.06);}
+}
+
+.kiss.holding{
+  animation:pulse 1.1s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  40%{transform:scale(1.12);}
+  70%{transform:scale(1);}
+}
+
+/* PROGRESS */
+.holdWrap{
+  width:100%;
+  height:14px;
+  background:#f1f5f9;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.holdFill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff758f,#ff4d6d);
+  transition:width 0.1s linear;
+}
+
+/* FLOATING HEARTS */
+.float{
+  position:absolute;
+  font-size:20px;
+  animation:floatUp linear infinite;
+  opacity:0.6;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<div class="card" id="s1">
+  <h1>💋 Happy Kiss Day</h1>
+  <p>
+    Some moments don’t need words.<br>
+    They just need closeness.
+  </p>
+  <button onclick="startMoment()">Come closer</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="card hidden" id="s2">
+  <h1>💞 Just this moment</h1>
+  <p id="msg">Press and hold…</p>
+  <div class="kiss" id="kissIcon">💋</div>
+
+  <div class="holdWrap">
+    <div class="holdFill" id="fill"></div>
+  </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="card hidden" id="s3">
+  <h1>💖 Kiss Day</h1>
+  <p>
+    A kiss isn’t about lips touching.<br>
+    It’s about hearts feeling safe enough<br>
+    to be close.<br><br>
+    Happy Kiss Day 💋
+  </p>
+</div>
+
+<script>
+const s1=document.getElementById("s1");
+const s2=document.getElementById("s2");
+const s3=document.getElementById("s3");
+
+const kissIcon=document.getElementById("kissIcon");
+const fill=document.getElementById("fill");
+const msg=document.getElementById("msg");
+
+function startMoment(){
+  s1.classList.add("hidden");
+  s2.classList.remove("hidden");
+}
+
+/* HOLD LOGIC */
+let timer=null;
+let progress=0;
+
+const messages=[
+  "Slow down… 💞",
+  "Stay here a moment 💓",
+  "This feels right 💖",
+  "Just us 💋"
+];
+
+function startHold(){
+  if(timer) return;
+  kissIcon.classList.add("holding");
+
+  timer=setInterval(()=>{
+    progress+=1.5;
+    fill.style.width=progress+"%";
+
+    if(progress>=25) msg.innerText=messages[0];
+    if(progress>=50) msg.innerText=messages[1];
+    if(progress>=75) msg.innerText=messages[2];
+
+    if(progress>=100){
+      clearInterval(timer);
+      document.body.style.background=
+        "linear-gradient(135deg,#0f172a,#1e293b,#020617)";
+      setTimeout(()=>{
+        s2.classList.add("hidden");
+        s3.classList.remove("hidden");
+      },900);
+    }
+  },60);
+}
+
+function stopHold(){
+  clearInterval(timer);
+  timer=null;
+  kissIcon.classList.remove("holding");
+}
+
+kissIcon.addEventListener("mousedown",startHold);
+kissIcon.addEventListener("touchstart",startHold);
+
+kissIcon.addEventListener("mouseup",stopHold);
+kissIcon.addEventListener("mouseleave",stopHold);
+kissIcon.addEventListener("touchend",stopHold);
+
+/* FLOATING HEARTS */
+const floats=["💗","💞","✨","💋"];
+for(let i=0;i<18;i++){
+  const f=document.createElement("div");
+  f.className="float";
+  f.innerText=floats[Math.floor(Math.random()*floats.length)];
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=7+Math.random()*6+"s";
+  document.body.appendChild(f);
+}
+</script>
+
+</body>
+</html>
