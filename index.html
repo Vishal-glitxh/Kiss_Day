@@ -3,221 +3,630 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Kiss Day 💋</title>
+<title>💋 A Kiss for My Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Poppins",sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-  height:100vh;
-  overflow:hidden;
-  background:linear-gradient(135deg,#fdeff9,#fbc2eb,#a18cd1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:background 2s ease;
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffd6e7 0%, #ffafcc 50%, #ff8fab 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  transition: all 1.2s ease;
+  position: relative;
 }
 
-/* CARD */
-.card{
-  width:92%;
-  max-width:420px;
-  background:rgba(255,255,255,0.92);
-  border-radius:30px;
-  padding:28px;
-  text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,0.15);
-  animation:fadeIn 1s ease;
+/* Soft background hearts */
+.bg-heart {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0.08;
+  animation: floatSoft 25s infinite linear;
+  pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
+@keyframes floatSoft {
+  0% { transform: translateY(100vh) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(360deg); }
 }
 
-.hidden{display:none;}
-
-h1{
-  color:#c9184a;
-  margin-bottom:12px;
+/* Card */
+.card {
+  width: 90%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(201, 24, 74, 0.15);
+  animation: gentleAppear 0.8s ease;
+  position: relative;
+  z-index: 10;
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
-p{
-  color:#6b7280;
-  font-size:1.05em;
-  line-height:1.7;
-  margin-bottom:16px;
+@keyframes gentleAppear {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* LIP ICON */
-.kiss{
-  font-size:90px;
-  margin:14px 0;
-  cursor:pointer;
-  animation:breath 4s ease-in-out infinite;
-  transition:transform 0.2s ease;
+.hidden { 
+  display: none; 
 }
 
-@keyframes breath{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.06);}
+/* Headings */
+h1 {
+  color: #c9184a;
+  margin-bottom: 15px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
 }
 
-.kiss.holding{
-  animation:pulse 1.1s infinite;
+h2 {
+  color: #ff4d6d;
+  margin-bottom: 10px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
 }
 
-@keyframes pulse{
-  0%{transform:scale(1);}
-  40%{transform:scale(1.12);}
-  70%{transform:scale(1);}
+/* Paragraphs */
+p {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
 }
 
-/* PROGRESS */
-.holdWrap{
-  width:100%;
-  height:14px;
-  background:#f1f5f9;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:10px;
+/* Kiss Container */
+.kiss-container {
+  position: relative;
+  margin: 25px 0;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.holdFill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#ff758f,#ff4d6d);
-  transition:width 0.1s linear;
+/* Kiss Icon with Tap & Hold */
+.kiss-icon {
+  font-size: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 5px 15px rgba(201, 24, 74, 0.3));
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* FLOATING HEARTS */
-.float{
-  position:absolute;
-  font-size:20px;
-  animation:floatUp linear infinite;
-  opacity:0.6;
-  pointer-events:none;
+.kiss-icon:active, 
+.kiss-icon.holding {
+  animation: kissPulse 0.8s infinite;
+  transform: scale(1.1);
 }
 
-@keyframes floatUp{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+@keyframes kissPulse {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1.15); }
+}
+
+/* Glow ring when holding */
+.glow-ring {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #ff8fab;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glow-ring.active {
+  animation: glowPulse 1.5s infinite;
+  opacity: 0.7;
+}
+
+@keyframes glowPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 20px rgba(255, 143, 171, 0.5);
+  }
+  50% { 
+    transform: scale(1.1); 
+    box-shadow: 0 0 30px rgba(255, 143, 171, 0.8);
+  }
+}
+
+/* Progress Bar for Tap & Hold */
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff4d6d, #ff8fab);
+  border-radius: 10px;
+  transition: width 0.1s linear;
+}
+
+/* Instruction */
+.instruction {
+  font-size: 0.95rem;
+  color: #888;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Message Display */
+.message-display {
+  background: rgba(255, 240, 245, 0.9);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 4px solid #ff4d6d;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reassurance-message {
+  font-size: 1.15rem;
+  color: #c9184a;
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Button */
+.romantic-btn {
+  padding: 15px 35px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.romantic-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(255, 77, 109, 0.4);
+}
+
+.romantic-btn:active {
+  transform: translateY(1px);
+}
+
+/* Heart Effects */
+.heart-effect {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  animation: floatUp 1.5s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% { 
+    opacity: 1;
+    transform: translateY(0) scale(0.5); 
+  }
+  100% { 
+    opacity: 0;
+    transform: translateY(-100px) scale(1); 
+  }
+}
+
+/* Final Screen Special */
+.final-hearts {
+  font-size: 60px;
+  margin: 20px 0;
+  animation: gentleBounce 2s infinite;
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2.3rem;
+  }
+  
+  h2 {
+    font-size: 1.9rem;
+  }
+  
+  .kiss-icon {
+    font-size: 80px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- SCREEN 1 -->
-<div class="card" id="s1">
-  <h1>💋 Happy Kiss Day</h1>
-  <p>
-    Some moments don’t need words.<br>
-    They just need closeness.
-  </p>
-  <button onclick="startMoment()">Come closer</button>
-</div>
-
-<!-- SCREEN 2 -->
-<div class="card hidden" id="s2">
-  <h1>💞 Just this moment</h1>
-  <p id="msg">Press and hold…</p>
-  <div class="kiss" id="kissIcon">💋</div>
-
-  <div class="holdWrap">
-    <div class="holdFill" id="fill"></div>
+<!-- Screen 1: Welcome -->
+<div class="card" id="screen1">
+  <h1>💋 For My Vannilla</h1>
+  
+  <div class="message-display">
+    <p class="reassurance-message">
+      My love, on this Kiss Day,<br>
+      I want you to feel how much you mean to me.
+    </p>
   </div>
+  
+  <div class="kiss-container">
+    <div class="glow-ring" id="glowRing"></div>
+    <div class="kiss-icon">💋</div>
+  </div>
+  
+  <p>
+    Tap and hold the kiss below.<br>
+    With each moment you hold it,<br>
+    I'll send you love and reassurance.
+  </p>
+  
+  <button class="romantic-btn" onclick="startKissExperience()">
+    Begin Our Moment
+  </button>
 </div>
 
-<!-- SCREEN 3 -->
-<div class="card hidden" id="s3">
-  <h1>💖 Kiss Day</h1>
-  <p>
-    A kiss isn’t about lips touching.<br>
-    It’s about hearts feeling safe enough<br>
-    to be close.<br><br>
-    Happy Kiss Day 💋
+<!-- Screen 2: Kiss Experience -->
+<div class="card hidden" id="screen2">
+  <h2>Hold My Kiss</h2>
+  
+  <div class="message-display">
+    <p class="reassurance-message" id="dynamicMessage">
+      I'm here for you, always. 🤍
+    </p>
+  </div>
+  
+  <div class="kiss-container">
+    <div class="glow-ring" id="activeGlowRing"></div>
+    <div class="kiss-icon" id="kissIcon">💋</div>
+  </div>
+  
+  <p id="instructionText">
+    Tap and hold the kiss. Don't let go until your heart feels full.
   </p>
+  
+  <div class="progress-container">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  
+  <p class="instruction">
+    Progress: <span id="progressText">0%</span> • Hold until 100%
+  </p>
+</div>
+
+<!-- Screen 3: Reassurance Message -->
+<div class="card hidden" id="screen3">
+  <h2>My Promise to You</h2>
+  
+  <div class="final-hearts">💖</div>
+  
+  <div class="message-display" style="background: rgba(255, 240, 245, 0.95);">
+    <p class="reassurance-message" style="font-size: 1.3rem;">
+      My darling Vannilla,<br><br>
+      No matter what you're going through,<br>
+      no matter how you're feeling,<br>
+      please remember this:<br><br>
+      
+      <strong>You are loved.</strong><br>
+      <strong>You are enough.</strong><br>
+      <strong>You are my everything.</strong>
+    </p>
+  </div>
+  
+  <p>
+    A kiss isn't just lips touching.<br>
+    It's my heart saying,<br>
+    "I choose you, today and always."
+  </p>
+  
+  <button class="romantic-btn" onclick="location.reload()" style="background: linear-gradient(135deg, #ff8fab, #ffb3c6);">
+    Feel Loved Again 💕
+  </button>
 </div>
 
 <script>
-const s1=document.getElementById("s1");
-const s2=document.getElementById("s2");
-const s3=document.getElementById("s3");
+// State variables
+let isHolding = false;
+let progress = 0;
+let holdInterval = null;
+let reassuranceIndex = 0;
 
-const kissIcon=document.getElementById("kissIcon");
-const fill=document.getElementById("fill");
-const msg=document.getElementById("msg");
+// Elements
+const screen1 = document.getElementById('screen1');
+const screen2 = document.getElementById('screen2');
+const screen3 = document.getElementById('screen3');
+const kissIcon = document.getElementById('kissIcon');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+const dynamicMessage = document.getElementById('dynamicMessage');
+const instructionText = document.getElementById('instructionText');
+const activeGlowRing = document.getElementById('activeGlowRing');
 
-function startMoment(){
-  s1.classList.add("hidden");
-  s2.classList.remove("hidden");
-}
-
-/* HOLD LOGIC */
-let timer=null;
-let progress=0;
-
-const messages=[
-  "Slow down… 💞",
-  "Stay here a moment 💓",
-  "This feels right 💖",
-  "Just us 💋"
+// Reassurance messages for her
+const reassuranceMessages = [
+  "I'm here for you, always. 🤍",
+  "You're stronger than you know. 💪",
+  "Your feelings are valid. 🌸",
+  "Take your time, I'll wait. ⏳",
+  "You don't have to be perfect. ✨",
+  "I love you just as you are. 💖",
+  "Tomorrow will be brighter. ☀️",
+  "You're doing better than you think. 🌟",
+  "My love for you is unconditional. 💕",
+  "You are enough, exactly as you are. 🫶",
+  "I believe in you. 🌈",
+  "You're not alone in this. 🤝",
+  "Your happiness matters to me. 😊",
+  "I'm proud of you, always. 🎉",
+  "You are my greatest blessing. 🙏"
 ];
 
-function startHold(){
-  if(timer) return;
-  kissIcon.classList.add("holding");
+// Create background hearts
+function createBackgroundHearts() {
+  const hearts = ['💖', '💕', '💗', '💓', '💞'];
+  
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'bg-heart';
+    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDelay = Math.random() * 15 + 's';
+    heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+    
+    document.body.appendChild(heart);
+  }
+}
 
-  timer=setInterval(()=>{
-    progress+=1.5;
-    fill.style.width=progress+"%";
-
-    if(progress>=25) msg.innerText=messages[0];
-    if(progress>=50) msg.innerText=messages[1];
-    if(progress>=75) msg.innerText=messages[2];
-
-    if(progress>=100){
-      clearInterval(timer);
-      document.body.style.background=
-        "linear-gradient(135deg,#0f172a,#1e293b,#020617)";
-      setTimeout(()=>{
-        s2.classList.add("hidden");
-        s3.classList.remove("hidden");
-      },900);
+// Create heart effect
+function createHeartEffect(x, y) {
+  const heart = document.createElement('div');
+  heart.className = 'heart-effect';
+  heart.innerHTML = '💖';
+  heart.style.left = (x - 12) + 'px';
+  heart.style.top = (y - 12) + 'px';
+  heart.style.fontSize = (18 + Math.random() * 15) + 'px';
+  
+  document.body.appendChild(heart);
+  
+  // Remove after animation
+  setTimeout(() => {
+    if (heart.parentNode) {
+      heart.parentNode.removeChild(heart);
     }
-  },60);
+  }, 1500);
 }
 
-function stopHold(){
-  clearInterval(timer);
-  timer=null;
-  kissIcon.classList.remove("holding");
+// Start the kiss experience
+function startKissExperience() {
+  screen1.classList.add('hidden');
+  setTimeout(() => {
+    screen2.classList.remove('hidden');
+  }, 300);
+  
+  // Create initial hearts
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      createHeartEffect(
+        window.innerWidth / 2,
+        window.innerHeight / 2
+      );
+    }, i * 200);
+  }
 }
 
-kissIcon.addEventListener("mousedown",startHold);
-kissIcon.addEventListener("touchstart",startHold);
-
-kissIcon.addEventListener("mouseup",stopHold);
-kissIcon.addEventListener("mouseleave",stopHold);
-kissIcon.addEventListener("touchend",stopHold);
-
-/* FLOATING HEARTS */
-const floats=["💗","💞","✨","💋"];
-for(let i=0;i<18;i++){
-  const f=document.createElement("div");
-  f.className="float";
-  f.innerText=floats[Math.floor(Math.random()*floats.length)];
-  f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=7+Math.random()*6+"s";
-  document.body.appendChild(f);
+// Start holding the kiss
+function startHoldKiss(e) {
+  if (isHolding) return;
+  
+  isHolding = true;
+  kissIcon.classList.add('holding');
+  activeGlowRing.classList.add('active');
+  
+  // Get position for heart effects
+  let x, y;
+  if (e.type.includes('touch')) {
+    x = e.touches[0].clientX;
+    y = e.touches[0].clientY;
+  } else {
+    x = e.clientX;
+    y = e.clientY;
+  }
+  
+  // Create initial heart
+  createHeartEffect(x, y);
+  
+  // Start progress interval
+  holdInterval = setInterval(() => {
+    progress += 1.5;
+    
+    // Update progress bar
+    progressFill.style.width = progress + '%';
+    progressText.textContent = Math.min(100, Math.round(progress)) + '%';
+    
+    // Update message every 15% progress
+    if (progress % 15 < 1.5) {
+      reassuranceIndex = (reassuranceIndex + 1) % reassuranceMessages.length;
+      dynamicMessage.textContent = reassuranceMessages[reassuranceIndex];
+      
+      // Create heart effect with new message
+      createHeartEffect(
+        x + (Math.random() * 60 - 30),
+        y + (Math.random() * 60 - 30)
+      );
+    }
+    
+    // Update instruction text
+    if (progress < 30) {
+      instructionText.textContent = "Keep holding, I'm sending you love...";
+    } else if (progress < 60) {
+      instructionText.textContent = "Feel my arms around you...";
+    } else if (progress < 90) {
+      instructionText.textContent = "Almost there, my love...";
+    } else {
+      instructionText.textContent = "You're doing so well...";
+    }
+    
+    // Create occasional heart effects
+    if (progress % 8 < 1.5) {
+      createHeartEffect(
+        x + (Math.random() * 100 - 50),
+        y + (Math.random() * 100 - 50)
+      );
+    }
+    
+    // Complete at 100%
+    if (progress >= 100) {
+      completeKiss();
+    }
+  }, 50);
 }
+
+// Stop holding the kiss
+function stopHoldKiss() {
+  if (!isHolding) return;
+  
+  clearInterval(holdInterval);
+  isHolding = false;
+  kissIcon.classList.remove('holding');
+  activeGlowRing.classList.remove('active');
+  
+  // Only count as significant if progress > 30%
+  if (progress > 30) {
+    // Create celebration hearts
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        createHeartEffect(
+          window.innerWidth / 2 + (Math.random() * 100 - 50),
+          window.innerHeight / 2 + (Math.random() * 100 - 50)
+        );
+      }, i * 200);
+    }
+  }
+  
+  // Reset after a delay if not completed
+  if (progress < 100) {
+    setTimeout(() => {
+      progress = 0;
+      progressFill.style.width = '0%';
+      progressText.textContent = '0%';
+      dynamicMessage.textContent = "I'm here for you, always. 🤍";
+      instructionText.textContent = "Tap and hold the kiss. Don't let go until your heart feels full.";
+    }, 1000);
+  }
+}
+
+// Complete the kiss experience
+function completeKiss() {
+  clearInterval(holdInterval);
+  isHolding = false;
+  kissIcon.classList.remove('holding');
+  activeGlowRing.classList.remove('active');
+  
+  // Update final message
+  dynamicMessage.textContent = "You are loved more than words can say. 💖";
+  progressText.textContent = '100%';
+  instructionText.textContent = "Perfect! You held on until the end.";
+  
+  // Create celebration
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      createHeartEffect(
+        window.innerWidth / 2 + (Math.random() * 200 - 100),
+        window.innerHeight / 2 + (Math.random() * 200 - 100)
+      );
+    }, i * 150);
+  }
+  
+  // Transition to night mode
+  document.body.style.background = 'linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #4a1e7c 100%)';
+  
+  // Move to final screen
+  setTimeout(() => {
+    screen2.classList.add('hidden');
+    screen3.classList.remove('hidden');
+    
+    // Final celebration
+    for (let i = 0; i < 15; i++) {
+      setTimeout(() => {
+        createHeartEffect(
+          Math.random() * window.innerWidth,
+          Math.random() * window.innerHeight
+        );
+      }, i * 100);
+    }
+  }, 2000);
+}
+
+// Initialize
+window.onload = function() {
+  createBackgroundHearts();
+  
+  // Set up kiss event listeners
+  kissIcon.addEventListener('mousedown', startHoldKiss);
+  kissIcon.addEventListener('touchstart', startHoldKiss);
+  
+  kissIcon.addEventListener('mouseup', stopHoldKiss);
+  kissIcon.addEventListener('mouseleave', stopHoldKiss);
+  kissIcon.addEventListener('touchend', stopHoldKiss);
+  
+  // Prevent context menu on kiss icon
+  kissIcon.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    return false;
+  });
+  
+  // Add romantic title rotation
+  let titleIndex = 0;
+  const romanticTitles = [
+    "💋 A Kiss for My Love",
+    "For My Vannilla 💖",
+    "Kiss Day Surprise 💕",
+    "You Are Loved 💗"
+  ];
+  
+  setInterval(() => {
+    document.title = romanticTitles[titleIndex % romanticTitles.length];
+    titleIndex++;
+  }, 3000);
+};
 </script>
-
 </body>
 </html>
